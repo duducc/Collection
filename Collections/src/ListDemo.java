@@ -1,26 +1,140 @@
+package collection;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+
+
+/*
+ *  Collection
+ *    |--List: ÔªËØÊÇÓÐÐòµÄ£¬ÔªËØ¿ÉÒÔÖØ¸´£¬ÒòÎª¸Ã¼¯ºÏÌåÏµÓÐË÷Òý
+ *    |--Set  ÔªËØÊÇÎÞÐòµÄ     ÔªËØ²»¿ÉÒÔÖØ¸´
+ */ 
+
+
+
 /**
- * List é›†åˆ
- *   å…·æœ‰3ä¸ªå¸¸è§çš„å­ç±»å¯¹è±¡
- *   ArrayList  LinkList   Vector
- *   å› ä¸ºä»–ä»¬åº•å±‚çš„æ•°æ®ç»“æž„ä¸ä¸€æ · å•ç‹¬çš„å°è£…äº†ä¸€ä¸ªå®žä½“  ä»–ä»¬åº•å±‚åˆ°åº•æ˜¯å¯¹è¿™äº›æ•°æ®æ€Žä¹ˆå­˜å‚¨çš„å‘¢
+ * ÒòÎªListÊÇ³éÈ¡³öÀ´µÄÒ»¸ö½Ó¿Ú £¬ËùÒÔËüÒ²¾Í¶¨ÒåÁË ArrayList   LinkedList   Vector  Õâ¸öÅÉÏµÖÐµÄ¹²ÐÔ·½·¨
+ * @author wc
  *
- *
- *   ArrayList-1.2ï¼›åº•å±‚çš„æ•°æ®ç»“æž„ä½¿ç”¨çš„æ˜¯æ•°æ®ç»“æž„  é‡Œé¢æ¯ä¸ªå…ƒç´ éƒ½æœ‰è§’æ ‡   ç‰¹ç‚¹æ˜¯æŸ¥è¯¢é€Ÿåº¦å¾ˆå¿«  ä¿®æ”¹ä¹Ÿå¿« å¢žåŠ   åˆ é™¤ æœ‰äº›éº»çƒ¦  å› ä¸ºåœ¨æŸä¸ªä½ç½®æ’å…¥å…ƒç´ çš„è¯  å…¶ä»–ä½ç½®çš„å…ƒç´ éƒ½èƒ½è·Ÿç€å˜  çº¿ç¨‹ä¸åŒæ­¥  æ•ˆçŽ‡é«˜
- *                  å…ƒç´ ä¸å¤š æ„Ÿè§‰ä¸å‡ºæ¥   å…ƒç´ è¶Šå¤š  ä½“ä¼šè¶Šæ˜Žæ˜¾
- *   LinkList : åº•å±‚çš„æ•°æ®ç»“æž„ä½¿ç”¨çš„æ˜¯é“¾è¡¨ç»“æž„   æ¯ä¸ªå…ƒç´ è®°ä½ä»–çš„å‰ä¸€ä¸ªå’ŒåŽä¸€ä¸ªå…ƒç´    ç‰¹ç‚¹-æŸ¥è¯¢æ…¢  å› ä¸ºä¾æ¬¡å¾€ä¸‹æ‰¾   å¢žåˆ å¿«  æ¯ä¸€ç§æ•°æ®ç»“æž„å¯¹å…ƒç´ çš„æ“ä½œéƒ½ä¸ä¸€æ · å„æœ‰ç‰¹ç‚¹
- *
- *   Vector-1.0 ï¼š åº•å±‚æ˜¯æ•°ç»„æ•°æ®ç»“æž„  é‚£ä¸é‡å¤äº† ç¡®å®žé‡å¤äº†  å‡ºçŽ°çš„æ—¶å€™é›†åˆæ¡†æž¶éƒ½ä¸åœ¨  1.2æ‰å‡ºçŽ°    Vectoræ˜¯çº¿ç¨‹åŒæ­¥çš„  æ— è®ºå¢žåˆ  æŸ¥è¯¢ éƒ½è¶…æ…¢  è¢«Arraylist æ›¿ä»£äº†  é‚£å¤šçº¿ç¨‹çš„æ—¶å€™å¯ä»¥è‡ªå·±åŠ é”  ä¹Ÿä¸ç”¨
- *
- *    javaé›†åˆå½“ä¸­ ä¸“é—¨æä¾›äº†ä¸€ä¸ªå¸®ä½ åŠ é”çš„   æŠŠä½ çš„ä¸å®‰å…¨çš„ç»™æˆ‘  æˆ‘ç»™ä½ ä¸€ä¸ªå®‰å…¨çš„
- *
- *    å¯¹äºŽArrayList å’Œ Vector  ä»–ä»¬éƒ½æ˜¯æ•°ç»„ç»“æž„çš„   æ•°ç»„æ˜¯å›ºå®šé•¿åº¦çš„   è€Œé›†åˆæ˜¯å¯å˜é•¿åº¦çš„
- *
- *    ArrayList é»˜è®¤é•¿åº¦æ˜¯10  è¶…è¿‡é•¿åº¦  åœ¨newä¸€ä¸ªæ•°ç»„   50%çš„å»¶é•¿  æŠŠåŽŸæ¥çš„æ•°ç»„copyåˆ°æ–°æ•°ç»„ä¸­æ¥  å†æŠŠè¦æ·»åŠ çš„å…ƒç´  æ·»åŠ åˆ°æ–°æ•°ç»„å½“ä¸­  å¯å˜é•¿åº¦æ•°ç»„
- *    Vector                                           100%çš„å»¶é•¿  æ¯”è¾ƒæµªè´¹ç©ºé—´  è€ŒArrayListçš„æ˜¯50%åˆšå¥½
  */
 public class ListDemo {
-
-
-
+	
+	/*
+	 *List ÌØÓÐ·½·¨   ·²ÊÇ¿ÉÒÔ²Ù×÷½Ç±êµÄ·½·¨¶¼ÊÇ¸ÃÌåÏµµÄÌØÓÐµÄ·½·¨
+	 *
+	 *   Ôö   
+	 *      add(index,element);
+	 *      addAll(index,Collection);
+	 *   É¾   
+	 *       remove(index);
+	 *   ¸Ä
+	 *       set(index,element);
+	 *   ²é
+	 *       get(index);
+	 *       subList(from ,to);
+	 *       listIterator();
+	 *
+	 */
+	
+	
+	public static void main(String[] args) {
+		//ÑÝÊ¾ÁÐ±íµü´úÆ÷
+		
+       ArrayList<String>  al  = new ArrayList<String>();
+		
+		//Ìí¼ÓÔªËØ
+		al.add("java01");
+		al.add("java02");
+		al.add("java03");
+		
+		//ÔÚµü´ú¹ý³ÌÖÐ£¬×¼±¸Ìí¼Ó»òÕßÉ¾³ýÔªËØ
+		Iterator<String> it = al.iterator();
+		while (it.hasNext()) {
+			Object obj = it.next();
+			if (obj.equals("java02")) {
+				//µ±·½·¨¼ì²âµ½¶ÔÏóµÄ²¢·¢ÐÞ¸Ä£¬µ«²»ÔÊÐíÕâÖÖÐÞ¸ÄÊ±£¬Å×³ö´ËÒì³£
+				//al.add("java008");
+				//½«java02µÄÒýÓÃ´Ó¼¯ºÏÖÐÉ¾³ýÁË
+				it.remove();//ÔËÐÐºóµÄ½á¹ûÎª      obj=java01   obj=java02    obj=java03    ¡¾java01  java03¡¿  
+				//ÎÊÌâÔÚÓÚ  ²»ÊÇ°Éjava02É¾³ýÁËÂð£¿  ÔõÃ´»¹»á´òÓ¡
+				// ´ð°¸ÊÇ ÄãÊÇ²»ÊÇ±éÀúµ½java02 ÁË  java02ÊÇ²»ÊÇobjµÄÖ¸ÏòÁË  it.remove() ÊÇ²»ÊÇ°ÑÕâ¸öÔªËØÒýÓÃ´Ó¼¯ºÏÖÐÒÆ³ýÁË      µ«ÊÇËäÈ»ÒýÓÃ´Ó¼¯ºÏÖÐÒÆ³ýÁË   ÔªËØÊÇ²»ÊÇ»¹ÔÚÄÚ´æµ±ÖÐ°¡  ¶Ô  
+				//ÔªËØÊÇ²»ÊÇ»¹ÔÚ±»objÊ¹ÓÃ°¡  ËùÒÔ±»´òÓ¡ÁË  ´òÓ¡Ã»ÓÐÎÊÌâ µ«ÊÇ¼¯ºÏÖÐÃ»ÓÐÁË  µ«×îÖÕ¼¯ºÏÖÐµÄÔªËØ±ä²»±ä  ±äÁË   ÊÇ²»ÊÇÉÙÁËÒ»¸ö
+				sop("obj="+obj);
+				
+			}
+		}
+		
+		sop(al);
+		//ÏÖÔÚÔªËØµÄÒýÓÃÊÇ²»ÊÇ´æ·ÅÔÚÁË¼¯ºÏµ±ÖÐ£¬Í¨¹ý¼¯ºÏµÄ·½·¨¿ÉÒÔ¶ÔÕâÐ©ÔªËØ²Ù×÷£¬ÕâÃ»ÓÐÎÊÌâ
+		//µ±ÎÒÃÇÀ´ÁËÒ»¸ö al.iterator()µÄÊ±ºò  £¬Õâ¸öÊ±ºòÔªËØµÄÒýÓÃÈ¡µ½µü´úÆ÷ÀïÃæÈ¥ÁË
+		//ÏÖÔÚÄÜ²Ù×÷ÔªËØµÄ·½Ê½ÊÇ²»ÊÇÓÐÁ½ÖÖ°¡  ÒªÃ´Í¨¹ý¼¯ºÏµÄ·½·¨²Ù×÷ÔªËØ£¬ÒªÃ´Í¨¹ýµü´úÆ÷µÄ·½·¨²Ù×÷ÔªËØ
+		//¿ÉÊÇ  Õâ¸öÊ±ºòÄãÒª×¢Òâ ÄãÕâÁ½ÖÖ·½Ê½ ÊÇ²»ÊÇ²Ù×÷µÄÍ¬Ò»×éÔªËØ
+	    //ËùÒÔÕâÀï»á²úÉúµÄÎÊÌâÊÇ   µü´úÆ÷ÕýÔÚµü´úÈ¡³öµÄ²Ù×÷¹ý³ÌÖÐ  ÄãÓÖÓÃµ½ÁË¼¯ºÏµÄ¹¦ÄÜ²Ù×÷ÕâÔªËØµÄ»°
+		//¾ÍÓÐ¿ÉÄÜ²úÉú°²È«Òþ»¼ £¬Õâ¸ö½Ð×ö²¢·¢·ÃÎÊ  Í¬Ê±µÄÒâË¼
+		//ÄÇÃ´Èç¹ûÎÒÔÚÈ¡µÃ¹ý³ÌÖÐ£¬ÄãÔÚÍùÀïÃæÌí¼ÓÔªËØ£¬ÄÇÃ´ÕâÔªËØÈ¡²»È¡¾Í¸ã²»Çå³þÁË
+		//Äã²»ÄÜ×öµÄÊÇ¶ÔÍ¬Ò»×é ÔªËØ½øÐÐ¶àÖÖÍ¬Ê±²Ù×÷£¬  Äã²»ÄÜÓÃ¼¯ºÏ ÓÖÓÃµü´úÆ÷ È¥²Ù×÷Í¬Ò»×éÔªËØ  ÕâÑùÓÐ¿ÉÄÜÒý·¢²¢·¢ÐÞ¸ÄÒì³£
+		//ÄãÔÚÈ¡  ÎÒÔÚÍùÀïÃæ¼Ó   ÄÇÃ´Äãµ½µ×È¡²»È¡ÄØ  ÊÇ²»ÊÇ¸ã²»Çå³þ  ÎªÊ²Ã´¸ã²»Çå³þ 
+		//ÈÝÆ÷ÔÙÍùÀïÃæ¼ÓÔªËØµÄÊ±ºò   ÊÇ²»ÊÇ¼ÓÁË  µ±Ç°µÄ3  ¸ö    µ½Õâ¾ä»°al.iterator()µÄÊ±ºò ÈÝÆ÷ÊÇ²»ÊÇÖ»ÖªµÀ  ÈÝÆ÷ÀïÃæÓÐ3¸ö  ËüÖ»ÓÐ3¸ö
+		//ÄãÔÚ¼ÓÆäËûµÄÔªËØ ËüÖªµÀÂð  Ëü²»ÖªµÀ  ÄÇËûµ½µ×È¡²»È¡  Ëü²»ÖªµÀ  ÄãÒªÔÙÉ¾Ò»¸öÄØ   ¸üÂé·³ÁË µü´úÆ÷±¾ÉíÈÏÎªÕâÓÐ Äã°ÑËüÉ¾ÁË   ËüÊÇ²»ÊÇÈ¡²»×Å
+		//ËùÒÔ²»ÄÜÕâÃ´¸ã  ÔõÃ´½â¾ö  ÄãÒªÃ´È«ÓÃ¼¯ºÏµÄ·½·¨ ÄãÒªÃ´È«ÓÃµü´úÆ÷µÄ·½·¨¿ÉÊÇÎÒÔÚµü´ú¹ý³ÌÖÐ ÎÒ¾Í²»ÄÜÓÃ¼¯ºÏÁË°É  µ«ÊÇÔÚµü´úÆ÷¼¯ºÏÇ°Ãæ¾Í¿ÉÒÔÓÃ¼¯ºÏµÄ·½·¨ÁË
+		//ËùÒÔ¾ÍÒªÓÃµü´úÆ÷µÄ·½·¨  
+		
+		// Iterrator½Ó¿Ú Ö»ÓÐ Èý¸ö·½·¨   Ã»ÓÐÌí¼Ó  ÓÐ¾ÖÏÞÐÔ
+		//  µ«ÊÇÁÐ±íµü´úÆ÷       ÀïÃæÓÐ½Ç±ê Ö¸Õë  ·½·¨±ÈIteratorÒª¶àµÄ¶à  ²»½öÄÜÌí¼Ó  »¹¿ÉÒÔÅÐ¶Ï  È¡³ö  ÐÞ¸Ä  É¾³ý   ÊÇlist¼¯ºÏÌØÓÐµÄµü´úÆ÷  ÊÇIteratorµÄ×Ó½Ó¿Ú   Ö»ÓÐlist¼¯ºÏ¿ÉÒÔ  ÒòÎª ´ø½Ç±ê
+	}
+	
+	
+	public  static void method(){
+       ArrayList<String>  al  = new ArrayList<String>();
+		
+		//Ìí¼ÓÔªËØ
+		al.add("java01");
+		al.add("java02");
+		al.add("java03");
+		sop("Ô­¼¯ºÏÊÇ:"+al);
+		
+		
+		//ÔÚÖ¸¶¨Î»ÖÃÌí¼ÓÔªËØ
+		al.add(1,"java09");
+		
+		//É¾³ýÖ¸¶¨Î»ÖÃµÄÔªËØ
+		al.remove(2);
+		
+		//ÐÞ¸ÄÔªËØ
+		al.set(2,"java007");
+		
+		//Í¨¹ý½Ç±ê»ñÈ¡ÔªËØ
+		sop("»ñÈ¡Ë÷ÒýÎª1µÄÔªËØ:"+al.get(1));
+		
+		sop("ÏÖ¼¯ºÏÊÇ:"+al);
+		
+		
+		//»ñÈ¡ËùÓÐÔªËØ   ²Ù×÷½Ç±ê  µ«·²²Ù×÷½Ç±êµÄ¶¼ÊÇÊý×éÔ­Àí  Ö»ÒªÓÐ½Ç±ê  ¾ÍÄÜ±éÀú
+		for (int i = 0; i <al.size(); i++) {
+			System.out.println("al("+i+")="+al.get(i));
+		}
+		
+		//µü´úÆ÷È¡³öÔªËØ
+		Iterator<String> it = al.iterator();
+		while (it.hasNext()) {
+             sop("next:"+it.next());			
+		}
+		
+		//Í¨¹ýindexOf»ñÈ¡¶ÔÏóµÄÎ»ÖÃ
+		sop("index="+al.indexOf("java09"));
+		
+		//»ñÈ¡´ÓÄÄµ½ÄÄµÄ×Ólist
+		
+		sop("×ÓList="+al.subList(0,2));
+		
+	}
+	
+	
+	
+	
+	public static void sop(Object obj){
+		
+		System.out.println(obj);
+	}
 
 }
